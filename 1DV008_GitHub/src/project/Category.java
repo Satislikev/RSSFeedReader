@@ -1,32 +1,42 @@
 package project;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+public class Category implements Comparable<Category> {
+	private String title;
+	private List<Feed> feeds;
 
-public class Category {
-	public ArrayList<Feed> feeds = new ArrayList<Feed>();
-	
-	
-	public void addFeed(Feed feed){
+	public Category(String title) {
+		this.title = title;
+		feeds = new ArrayList<Feed>();
+	}
+
+	public void addFeed(Feed feed) {
 		feeds.add(feed);
 	}
-	
-	public void removeFeed(Feed feed){
-		feeds.remove(feed);
+
+	public void removeFeed(Feed feed) {
+		if (hasFeed(feed))
+			feeds.remove(feed);
+		else
+			System.out.println("Feed does not exist");
 	}
-	
-	public void sortFeeds(){
-		Feed a;
-		for (int i = 1; i < feeds.size(); i++) {
-			for(int j = i; j>0; j--){
-				if(feeds.get(j).compareTo(feeds.get(j-1))<0){
-					a = feeds.get(j-1);
-					 list.get(j);//I have separated the equation into two parts if you can see below!
-					 
-					feeds.get(j-1);
-					feeds.get(j);
-				}
-			}
-		}
+
+	public boolean hasFeed(Feed feed) {
+		if (feeds.contains(feed))
+			return true;
+		else
+			return false;
+	}
+
+	public void sortFeeds() {
+		Collections.sort(feeds);
+	}
+
+	@Override
+	public int compareTo(Category category) {
+		return this.title.compareTo(category.title);
 	}
 }
