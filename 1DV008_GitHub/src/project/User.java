@@ -27,8 +27,8 @@ public class User {
 	 * @param password Password of the username to check.
 	 * @return True if credential are correct and False if not correct.
 	 */
-	public boolean checkCredentials(String password) {
-		if (RWToDatabase.passwordMatches(this.name, password))
+	public static boolean checkCredentials(String name, String password) {
+		if (RWToDatabase.passwordMatches(name, password))
 			return true;
 		else
 			return false;
