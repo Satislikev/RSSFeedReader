@@ -1,9 +1,9 @@
 package project;
 
 public class Article {
-
 	private String title;
 	private String description;
+	private String link;
 	private String author;
 
 	public String getTitle() {
@@ -22,6 +22,14 @@ public class Article {
 		this.description = description;
 	}
 
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 	public String getAuthor() {
 		return author;
 	}
@@ -31,9 +39,7 @@ public class Article {
 	}
 
 	public String toString() {
-		return "ArticleClass[title=" + title + ", description=" + description
-				+ ", author=" + author + " ]";
-
+		return "Article [title=" + title + ", description=" + description + ", link=" + link + ", author=" + author + "]";
 	}
 
 }

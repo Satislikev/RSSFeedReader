@@ -9,14 +9,16 @@ import java.util.List;
 public class Feed implements Comparable<Feed> {
 	private String title;
 	private Path path;
+	private String copyright;
 	private Date pubDate;
 	private List<Article> articles;
 
-	public Feed(String title, Date pubDate, String path,
-			ArrayList<Article> articles) {
+	public Feed(String title, String copyright, Date pubDate, String path, ArrayList<Article> articles) {
 		this.title = title;
+		this.copyright = copyright;
 		this.pubDate = pubDate;
 		this.path = Paths.get(path, null);
+		this.articles = new ArrayList<Article>();
 		this.articles = articles;
 	}
 
@@ -36,6 +38,14 @@ public class Feed implements Comparable<Feed> {
 		this.path = path;
 	}
 
+	public String getCopyright() {
+		return copyright;
+	}
+
+	public void setCopyright(String copyright) {
+		this.copyright = copyright;
+	}
+
 	public Date getDate() {
 		return pubDate;
 	}
@@ -45,12 +55,11 @@ public class Feed implements Comparable<Feed> {
 	}
 
 	public String toString() {
-		return "Feed Title: " + title + " Feed Path: " + path + " Feed date: "
-				+ pubDate;
+		return "Feed [title: " + title + " Feed Path: " + path + " Feed date: " + pubDate;
 	}
 
-	public int compareTo(Feed feed) {
-		return pubDate.compareTo(feed.pubDate);
+	public int compareTo(Feed other) {
+		return pubDate.compareTo(other.pubDate);
 	}
 
 	// public int compareTo(Feed feed) {

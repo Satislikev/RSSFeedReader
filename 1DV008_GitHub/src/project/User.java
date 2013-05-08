@@ -9,7 +9,6 @@ import java.util.List;
  * 
  */
 public class User {
-
 	private String name;
 	private String password;
 	private List<Category> categories;
@@ -28,8 +27,11 @@ public class User {
 	 * @param password Password of the username to check.
 	 * @return True if credential are correct and False if not correct.
 	 */
-	public boolean checkCredentials(String password) { // Must be reviewed.
-		return false;
+	public boolean checkCredentials(String password) {
+		if (RWToDatabase.passwordMatches(this.name, password))
+			return true;
+		else
+			return false;
 	}
 
 	/**
@@ -37,6 +39,7 @@ public class User {
 	 */
 	public void addCategory(Category category) {
 		categories.add(category);
+		sortCategories();
 	}
 
 	/**
@@ -45,6 +48,7 @@ public class User {
 	public void removeCategory(Category category) {
 		if (hasCategory(category)) {
 			categories.remove(category);
+			sortCategories();
 		} else {
 			System.out.println("Category does not exist.");
 		}
