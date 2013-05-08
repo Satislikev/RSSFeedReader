@@ -2,9 +2,9 @@ package project;
 
 public class Article {
 
-	String title;
-	String description;
-	String author;
+	private String title;
+	private String description;
+	private String author;
 
 	public String getTitle() {
 		return title;
