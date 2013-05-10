@@ -7,25 +7,44 @@ import java.util.Date;
 import java.util.List;
 
 public class Feed implements Comparable<Feed> {
-	private String title;
+	private String feedTitle;
+	private String feedDescription;
+	private String Copyright;
 	private Path path;
-	private Date pubDate;
+	private Date feedPubDate; 
+
 	private List<Article> articles;
 
 	public Feed(String title, Date pubDate, String path,
-			ArrayList<Article> articles) {
-		this.title = title;
-		this.pubDate = pubDate;
+			List<Article> articles) {
+		this.feedTitle = title;
+		this.feedPubDate = pubDate;
 		this.path = Paths.get(path, null);
 		this.articles = articles;
 	}
 
 	public String getTitle() {
-		return title;
+		return feedTitle;
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.feedTitle = title;
+	}
+	
+	public String getDescription() {
+		return feedDescription;
+	}
+
+	public void setDescription(String description) {
+		this.feedDescription = description;
+	}
+	
+	public String getCopyright() {
+		return Copyright;
+	}
+
+	public void setCopyright(String copyright) {
+		Copyright = copyright;
 	}
 
 	public Path getPath() {
@@ -37,20 +56,20 @@ public class Feed implements Comparable<Feed> {
 	}
 
 	public Date getDate() {
-		return pubDate;
+		return feedPubDate;
 	}
 
 	public void setDate(Date date) {
-		this.pubDate = date;
+		this.feedPubDate = date;
 	}
 
 	public String toString() {
-		return "Feed Title: " + title + " Feed Path: " + path + " Feed date: "
-				+ pubDate;
+		return "Feed Title: " + feedTitle + " Feed Path: " + path + " Feed date: "
+				+ feedPubDate;
 	}
 
 	public int compareTo(Feed feed) {
-		return pubDate.compareTo(feed.pubDate);
+		return feedPubDate.compareTo(feed.feedPubDate);
 	}
 
 	// public int compareTo(Feed feed) {

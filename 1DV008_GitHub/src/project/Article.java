@@ -1,38 +1,46 @@
 package project;
 
+import java.util.Date;
+
 public class Article {
 
-	private String title;
-	private String description;
-	private String author;
+	private String articleTitle;
+	private String articleDescription;
+	private Date articlePubDate; 
+
+	public Article(String title, String description, Date pubDate) {
+		this.articleTitle = title;
+		this.articleDescription = description;
+		this.articlePubDate = pubDate;
+	}
 
 	public String getTitle() {
-		return title;
+		return articleTitle;
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.articleTitle = title;
 	}
 
 	public String getDescription() {
-		return description;
+		return articleDescription;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.articleDescription = description;
 	}
 
-	public String getAuthor() {
-		return author;
+	public Date getpubDate() {
+		return articlePubDate;
 	}
 
-	public void setAuthor(String author) {
-		this.author = author;
+	public void setpubDate(Date pubDate) {
+		this.articlePubDate = pubDate;
 	}
 
 	public String toString() {
-		return "ArticleClass[title=" + title + ", description=" + description
-				+ ", author=" + author + " ]";
+		return "ArticleClass[title=" + articleTitle + ", description=" + articleDescription
+				+ ", author=" + articlePubDate.toString() + " ]";
 
 	}
 
