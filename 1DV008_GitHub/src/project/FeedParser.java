@@ -29,7 +29,17 @@ public class FeedParser {
 	private static final String DESCRIPTION = "description";
 	private static final String ITEM = "item";
 	private static final String PUB_DATE = "pubDate";
+	private static final String LAST_BUILD_DATE = "lastBuildDate";
 	private List<Article> articles;
+	private Article article;
+	private Feed feed;
+	private String articleTitle = "";
+	private String feedTitle="";
+	private String articleDescription = "";
+	private String feedPath = "";
+	private Date articlePubDate = null;
+	private Date feedPubDate = null;
+	private String articleLink = "";
 
 	static final File FILE = null;
 
@@ -42,16 +52,9 @@ public class FeedParser {
 			XMLEventReader reader = inputFactory
 					.createXMLEventReader(fileReader);
 
-			String title = "";
-			String description = "";
-			String Copyright = "";
-			String path = "";
-			Date pubDate = null;
+			
 
-			/* Start Here............................ */
-			Article article = new Article(title, description, pubDate);
 			articles = new ArrayList<Article>();
-			Feed feed = new Feed(title, pubDate, path, articles);
 
 			while (reader.hasNext()) {
 				XMLEvent event = reader.nextEvent();
@@ -62,10 +65,10 @@ public class FeedParser {
 						feed.setTitle(element.asCharacters().getData());
 						System.out.println(feed.getTitle());
 						break;
-//					case DESCRIPTION:
-//						feed.setDescription(element.asCharacters().getData());
-//						System.out.println(feed.getDescription());
-//						break;
+					// case DESCRIPTION:
+					// feed.setDescription(element.asCharacters().getData());
+					// System.out.println(feed.getDescription());
+					// break;
 
 					case ITEM:
 

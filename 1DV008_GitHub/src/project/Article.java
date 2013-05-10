@@ -7,12 +7,13 @@ public class Article {
 	private String articleTitle;
 	private String articleDescription;
 	private Date articlePubDate; 
-	private String link;
+	private String articleLink;
 
-	public Article(String title, String description, Date pubDate) {
+	public Article(String title, String description, Date pubDate, String articleLink) {
 		this.articleTitle = title;
 		this.articleDescription = description;
 		this.articlePubDate = pubDate;
+		this.articleLink = articleLink;
 	}
 
 	public String getTitle() {
@@ -31,26 +32,24 @@ public class Article {
 		this.articleDescription = description;
 	}
 
-
 	public Date getpubDate() {
 		return articlePubDate;
 		}
-	public String getLink() {
-		return link;
+	
+	public String getArticleLink() {
+		return articleLink;
 	}
 
-	public void setLink(String link) {
-		this.link = link;
+	public void setArticleLink(String articleLink) {
+		this.articleLink = articleLink;
 	}
-
 
 	public void setpubDate(Date pubDate) {
 		this.articlePubDate = pubDate;
 	}
 
 	public String toString() {
-		return "Article [title=" + articleTitle + ", description=" + articleDescription + ", link=" + link + "]";
-
+		return "Article [title=" + articleTitle + ", description=" + articleDescription + ", link=" + articleLink + "]";
 	}
 
 }
