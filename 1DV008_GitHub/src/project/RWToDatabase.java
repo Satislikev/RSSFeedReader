@@ -55,7 +55,7 @@ public class RWToDatabase {
 	}
 	
 	public static void addCategory(String title, User owner) {
-//		jhjh
+		
 	}
 	
 	public static void removeCategory(String title, User owner) {

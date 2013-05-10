@@ -7,6 +7,7 @@ public class Article {
 	private String articleTitle;
 	private String articleDescription;
 	private Date articlePubDate; 
+	private String link;
 
 	public Article(String title, String description, Date pubDate) {
 		this.articleTitle = title;
@@ -30,17 +31,25 @@ public class Article {
 		this.articleDescription = description;
 	}
 
+
 	public Date getpubDate() {
 		return articlePubDate;
+		}
+	public String getLink() {
+		return link;
 	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
 
 	public void setpubDate(Date pubDate) {
 		this.articlePubDate = pubDate;
 	}
 
 	public String toString() {
-		return "ArticleClass[title=" + articleTitle + ", description=" + articleDescription
-				+ ", author=" + articlePubDate.toString() + " ]";
+		return "Article [title=" + articleTitle + ", description=" + articleDescription + ", link=" + link + "]";
 
 	}
 

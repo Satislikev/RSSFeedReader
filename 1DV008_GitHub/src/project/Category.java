@@ -21,7 +21,8 @@ public class Category implements Comparable<Category> {
 		if (hasFeed(feed))
 			feeds.remove(feed);
 		else
-			System.out.println("Feed does not exist");
+			System.out.println("Feed does not exist"); // should be in the form of a popup window 
+													   // or something similar in the GUI.
 	}
 
 	public boolean hasFeed(Feed feed) {
@@ -35,8 +36,7 @@ public class Category implements Comparable<Category> {
 		Collections.sort(feeds);
 	}
 
-	@Override
-	public int compareTo(Category category) {
-		return this.title.compareTo(category.title);
+	public int compareTo(Category other) {
+		return title.compareTo(other.title);
 	}
 }
