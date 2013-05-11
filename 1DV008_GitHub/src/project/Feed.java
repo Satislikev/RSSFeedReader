@@ -6,16 +6,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+/*
+ * 
+ * CHANGE GET AND SET NAMES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ * 
+ * */
+
 public class Feed implements Comparable<Feed> {
 	private String feedTitle;
 	private Path feedPath;
 	private Date feedPubDate;
 	private List<Article> articles;
 
-	public Feed(String title, Date pubDate, String path, ArrayList<Article> articles) {
+	public Feed(String title, Date pubDate, String path, List<Article> articles) {
 		this.feedTitle = title;
 		this.feedPubDate = pubDate;
-		this.feedPath = Paths.get(path, null);
+		this.feedPath = Paths.get(path);
 		this.articles = new ArrayList<Article>();
 		this.articles = articles;
 	}
@@ -40,12 +47,12 @@ public class Feed implements Comparable<Feed> {
 		return feedPubDate;
 	}
 
-	public void setDate(Date date) {
+	public void setPubDate(Date date) {
 		this.feedPubDate = date;
 	}
 
 	public String toString() {
-		return "Feed [title: " + feedTitle + " Feed Path: " + feedPath + " Feed date: " + feedPubDate;
+		return "Feed [title: " + feedTitle + " Feed Path: " + feedPath.toString() + " Feed date: " + feedPubDate + "]\n" ;
 	}
 
 	public int compareTo(Feed other) {

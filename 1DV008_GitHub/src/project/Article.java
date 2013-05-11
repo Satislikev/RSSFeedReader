@@ -49,7 +49,7 @@ public class Article {
 	}
 
 	public String toString() {
-		return "Article [title=" + articleTitle + ", description=" + articleDescription + ", link=" + articleLink + "]";
+		return "Article [title=" + articleTitle + ", description=" + articleDescription + ", link=" + articleLink + "]\n";
 	}
 
 }

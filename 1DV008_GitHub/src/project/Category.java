@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Category implements Comparable<Category> {
 	private String title;
-	private List<Feed> feeds;
+	public List<Feed> feeds;
 
 	public Category(String title) {
 		this.title = title;
