@@ -39,17 +39,17 @@ public class FeedParser {
 	private static String articleTitle = "";
 	private static String feedTitle="";
 	private static String articleDescription = "";
-	private static String feedPath = "";
 	private static Date articlePubDate = null;
 	private static Date feedPubDate = null;
 	private static String articleLink = "";
-	private static boolean header = true;
-	private static boolean image = false;
+	private static boolean header;
+	private static boolean image;
 
 
 	@SuppressWarnings("deprecation")
 	public static Feed ParseFeed(File rssfile) {
-
+		header = true;
+		 image = false;
 		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 
 		try {
@@ -57,15 +57,12 @@ public class FeedParser {
 			XMLEventReader reader = inputFactory
 					.createXMLEventReader(fileReader);
 
-
-
 			articles = new ArrayList<Article>();
-			feed=new Feed(TITLE, feedPubDate, feedPath, null);
 			while (reader.hasNext()) {
 				XMLEvent event = reader.nextEvent();
 				if (event.isStartElement()) {
 					StartElement element = (StartElement) event;
-					//					System.out.println(element.getName().getLocalPart());
+					//					//System.out.println(element.getName().getLocalPart());
 					switch (element.getName().getLocalPart()) {
 					case TITLE:
 						if(header){
@@ -73,7 +70,7 @@ public class FeedParser {
 							if (event instanceof Characters) {
 								feedTitle = event.asCharacters().getData();
 							}
-							//systemout.println(element.getName().getLocalPart() +"\n" +feedTitle);
+							//System.out.println(element.getName().getLocalPart() +"\n" +feedTitle);
 						}else{
 							if(image){
 								event =reader.nextEvent();
@@ -82,7 +79,7 @@ public class FeedParser {
 								if (event instanceof Characters) {
 									articleTitle = event.asCharacters().getData();
 								}
-								//systemout.println(element.getName().getLocalPart() +"\n" +articleTitle);
+								//System.out.println(element.getName().getLocalPart() +"\n" +articleTitle);
 							}
 						}
 						break;
@@ -97,7 +94,7 @@ public class FeedParser {
 								if (event instanceof Characters) {
 									articleDescription = event.asCharacters().getData();
 								}
-								//systemout.println(element.getName().getLocalPart() +"\n" +articleDescription);
+								//System.out.println(element.getName().getLocalPart() +"\n" +articleDescription);
 							}
 						}
 						break;
@@ -107,13 +104,13 @@ public class FeedParser {
 							if (event instanceof Characters) {
 								feedPubDate = new Date (event.asCharacters().getData());
 							}
-							//systemout.println(element.getName().getLocalPart() +"\n" +feedPubDate.toString()+"\n");
+							//System.out.println(element.getName().getLocalPart() +"\n" +feedPubDate.toString()+"\n");
 						}else{
 							event = reader.nextEvent();
 							if (event instanceof Characters) {
 								articlePubDate = new  Date(event.asCharacters().getData());
 							}
-							//systemout.println(element.getName().getLocalPart() +"\n" +articlePubDate.toString()+"\n");
+							//System.out.println(element.getName().getLocalPart() +"\n" +articlePubDate.toString()+"\n");
 						}
 						break;
 					case LINK:
@@ -127,7 +124,7 @@ public class FeedParser {
 								if (event instanceof Characters) {
 									articleLink = event.asCharacters().getData();
 								}
-								//systemout.println(element.getName().getLocalPart() +"\n" +articleLink);
+								//System.out.println(element.getName().getLocalPart() +"\n" +articleLink);
 							}
 						}
 						break;
@@ -157,10 +154,10 @@ public class FeedParser {
 			e.printStackTrace();
 		}
 
-//		feed = new Feed(feedTitle, feedPubDate, rssfile.getPath(), articles);
-		//			System.out.println(feed.toString());
+		feed = new Feed(feedTitle, feedPubDate, rssfile.getPath(), articles);
+					System.out.println(feed.toString());
 
-		return feed = new Feed(feedTitle, feedPubDate, rssfile.getPath(), articles);
+		return feed;
 
 	}
 

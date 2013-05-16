@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Category implements Comparable<Category> {
 	private String title;
-	public List<Feed> feeds;
+	private List<Feed> feeds;
 
 	public Category(String title) {
 		this.title = title;
@@ -21,8 +21,10 @@ public class Category implements Comparable<Category> {
 		if (hasFeed(feed))
 			feeds.remove(feed);
 		else
-			System.out.println("Feed does not exist"); // should be in the form of a popup window 
-													   // or something similar in the GUI.
+			System.out.println("Feed does not exist"); // should be in the form
+														// of a popup window
+														// or something similar
+														// in the GUI.
 	}
 
 	public boolean hasFeed(Feed feed) {
@@ -34,6 +36,14 @@ public class Category implements Comparable<Category> {
 
 	public void sortFeeds() {
 		Collections.sort(feeds);
+	}
+
+	public List<Feed> getFeed() {
+		return feeds;
+	}
+
+	public void setFeed(List<Feed> feeds) {
+		this.feeds = feeds;
 	}
 
 	public int compareTo(Category other) {

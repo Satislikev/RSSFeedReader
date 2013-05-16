@@ -7,16 +7,13 @@ import java.util.Date;
 import java.util.List;
 
 
-/*
- * 
- * CHANGE GET AND SET NAMES !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- * 
- * */
+
 
 public class Feed implements Comparable<Feed> {
 	private String feedTitle;
 	private Path feedPath;
 	private Date feedPubDate;
+	@SuppressWarnings("unused")
 	private List<Article> articles;
 
 	public Feed(String title, Date pubDate, String path, List<Article> articles) {
@@ -27,30 +24,30 @@ public class Feed implements Comparable<Feed> {
 		this.articles = articles;
 	}
 
-	public String getTitle() {
+	public String getFeedTitle() {
 		return feedTitle;
 	}
 
-	public void setTitle(String title) {
+	public void setFeedTitle(String title) {
 		this.feedTitle = title;
 	}
 
-	public Path getPath() {
+	public Path getFeedPath() {
 		return feedPath;
 	}
 
-	public void setPath(Path path) {
+	public void setFeedPath(Path path) {
 		this.feedPath = path;
 	}
 
-	public Date getDate() {
+	public Date getFeedPubDate() {
 		return feedPubDate;
 	}
 
-	public void setPubDate(Date date) {
+	public void setFeedPubDate(Date date) {
 		this.feedPubDate = date;
 	}
-
+	@Override
 	public String toString() {
 		return "Feed [title: " + feedTitle + " Feed Path: " + feedPath.toString() + " Feed date: " + feedPubDate + "]\n" ;
 	}
