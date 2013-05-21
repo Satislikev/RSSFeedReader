@@ -28,10 +28,11 @@ public class GUILoginPanel extends JPanel  {
 	private String passwordValue;
 	private String validUser;
 	
-	private JPanel containerPanel;
+	private GUIContainerPanel containerPane;
 	
-	public GUILoginPanel() {
+	public GUILoginPanel(GUIContainerPanel containerPane) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.containerPane = containerPane;
 		
 		credentialsPane = new JPanel(new GridLayout(2, 2));
 		usernameLabel = new JLabel("Username:");
@@ -57,8 +58,7 @@ public class GUILoginPanel extends JPanel  {
 				validUser = usernameValue;
 				passwordValue = passwordField.getText();
 				if (User.checkCredentials(validUser, passwordValue)) {
-					containerPanel = new GUIContainerPanel();
-					containerPanel.setVisible(true);
+					containerPane.authenticated(RWToDatabase.getUserID(usernameValue));
 				}
 			}
 			else

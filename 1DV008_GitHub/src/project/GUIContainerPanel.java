@@ -12,16 +12,39 @@ public class GUIContainerPanel extends JPanel {
 	
 	private final Dimension PANEL_SIZE = new Dimension(1200, 800);
 	private final Color BACKGROUND_COLOR = Color.white;
-	private JPanel loginPanel;
+	private GUILoginPanel loginPane;
+	private GUICategoryPanel categoryPane;
+	private GUIFeedPanel feedPane;
+	private GUIArticlePanel articlePane;
+	private int userID;
 	
 	public GUIContainerPanel() {
-		setPreferredSize(PANEL_SIZE);
 		setBackground(BACKGROUND_COLOR);
 		setLayout(new BorderLayout());
 		
-		loginPanel = new GUILoginPanel();
-		add(loginPanel, BorderLayout.CENTER);
+		loginPane = new GUILoginPanel(this);
+		add(loginPane, BorderLayout.CENTER);
+	}
+
+	public void authenticated(int userID) {
+		this.userID = userID;
+		loginPane.setVisible(false);
+		setPreferredSize(PANEL_SIZE);
 		
+		categoryPane = new GUICategoryPanel(this, this.userID);
+		feedPane = new GUIFeedPanel(this, this.userID);
+		articlePane = new GUIArticlePanel(this, this.userID);
+		add(categoryPane, BorderLayout.CENTER);
+		add(feedPane, BorderLayout.CENTER);
+		add(articlePane, BorderLayout.CENTER);
+	}
+	
+	public void showFeeds(int categoryID) {
+		feedPane.updateFeedList(categoryID);
+	}
+	
+	public void showArticles(int feedID) {
+		articlePane.updateArticles(feedID);
 	}
 
 }

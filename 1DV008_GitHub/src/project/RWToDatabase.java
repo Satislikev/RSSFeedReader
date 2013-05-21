@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RWToDatabase {
 	private final static String url = "jdbc:mysql://localhost:3306/rssDB";
@@ -16,6 +18,10 @@ public class RWToDatabase {
 	private static Statement statement = null;
 	private static PreparedStatement preparedStatement = null;
 	private static ResultSet resultSet = null;
+	private static int userID;
+	private static List<String> categoryList;
+	private static List<String> feedList;
+	private static int categoryID;
 	
 	public static boolean nameExists(String name) {
 		startConnection();
@@ -54,11 +60,87 @@ public class RWToDatabase {
 		return false;
 	}
 	
-	public static void addCategory(String title, User owner) {
+
+	public static int getUserID(String username) {
+		startConnection();
+		userID = 0;
+		try {
+			preparedStatement = connection.prepareStatement("SELECT * FROM rssDB.user WHERE name = ?;");
+			preparedStatement.setString(1, username);
+			resultSet = preparedStatement.executeQuery();
+			userID = resultSet.getInt("id");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
+		return userID;
+	}
+	
+	public static String[] getUsersCategoryList(int userID) {
+		startConnection();
+		categoryList = new ArrayList<String>();
+		String[] result = null;
+		try {
+			preparedStatement = connection.prepareStatement("SELECT name FROM rssDB.category WHERE id IN " +
+					"(SELECT category_id FROM reeDB.user_defines_category WHERE user_id = ?);");
+			preparedStatement.setInt(1, userID);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+				categoryList.add(resultSet.getString("name"));
+			result = new String[categoryList.size()];
+			categoryList.toArray(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
+		return result;
+	}
+	
+	public static String[] getCategorysFeedList(int userID, int categoryID) {
+		startConnection();
+		feedList = new ArrayList<String>();
+		String[] result = null;
+		try {
+			preparedStatement = connection.prepareStatement("SELECT title FROM rssDB.feed WHERE id IN " +
+					"(SELECT category_id FROM reeDB.user_defines_category WHERE user_id = ?);");
+			preparedStatement.setInt(1, userID);
+			preparedStatement.setInt(2, categoryID);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+				feedList.add(resultSet.getString("title"));
+			result = new String[feedList.size()];
+			feedList.toArray(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
+		return result;
+	}
+	
+	public static int getCategoryID(String categoryName) {
+		startConnection();
+		categoryID = 0;
+		try {
+			preparedStatement = connection.prepareStatement("SELECT * FROM rssDB.category WHERE name = ?;");
+			preparedStatement.setString(1, categoryName);
+			resultSet = preparedStatement.executeQuery();
+			categoryID = resultSet.getInt("id");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
+		return categoryID;
+	}
+	
+	public static void addCategory(String categoryName, int ownerID) {
 		
 	}
 	
-	public static void removeCategory(String title, User owner) {
+	public static void renameCategory(String oldCategoryName, String newCategoryName, int ownerID) {
+		
+	}
+	
+	public static void removeCategory(String categoryName, int ownerID) {
 		
 	}
 	
