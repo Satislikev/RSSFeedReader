@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.file.Path;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -46,7 +47,7 @@ public class FeedParser {
 	private static boolean image;
 
 
-	@SuppressWarnings("deprecation")
+
 	public static Feed ParseFeed(File rssfile) {
 		header = true;
 		 image = false;
@@ -102,7 +103,7 @@ public class FeedParser {
 						if(header){
 							event = reader.nextEvent();
 							if (event instanceof Characters) {
-								feedPubDate = new Date (event.asCharacters().getData());
+								feedPubDate = new Date (dateparser.parse(event.asCharacters().getData()));
 							}
 							//System.out.println(element.getName().getLocalPart() +"\n" +feedPubDate.toString()+"\n");
 						}else{

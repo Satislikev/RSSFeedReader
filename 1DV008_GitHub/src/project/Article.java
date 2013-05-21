@@ -6,10 +6,11 @@ public class Article {
 
 	private String articleTitle;
 	private String articleDescription;
-	private Date articlePubDate; 
+	private Date articlePubDate;
 	private String articleLink;
 
-	public Article(String title, String description, Date pubDate, String articleLink) {
+	public Article(String title, String description, Date pubDate,
+			String articleLink) {
 		this.articleTitle = title;
 		this.articleDescription = description;
 		this.articlePubDate = pubDate;
@@ -34,8 +35,8 @@ public class Article {
 
 	public Date getpubDate() {
 		return articlePubDate;
-		}
-	
+	}
+
 	public String getArticleLink() {
 		return articleLink;
 	}
@@ -49,7 +50,8 @@ public class Article {
 	}
 
 	public String toString() {
-		return "Article [title=" + articleTitle + ", description=" + articleDescription + ", link=" + articleLink + "]\n";
+		return "Title:" + articleTitle + "\nPub Date:" + articlePubDate
+				+ "\nDescription=" + articleDescription + "\nLink="+ articleLink + "]\n";
 	}
 
 }

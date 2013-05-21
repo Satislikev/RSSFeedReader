@@ -3,6 +3,7 @@ package project;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,6 @@ public class Feed implements Comparable<Feed> {
 	private String feedTitle;
 	private Path feedPath;
 	private Date feedPubDate;
-	@SuppressWarnings("unused")
 	private List<Article> articles;
 
 	public Feed(String title, Date pubDate, String path, List<Article> articles) {
@@ -50,6 +50,14 @@ public class Feed implements Comparable<Feed> {
 	@Override
 	public String toString() {
 		return "Feed [title: " + feedTitle + " Feed Path: " + feedPath.toString() + " Feed date: " + feedPubDate + "]\n" ;
+	}
+	
+	public String articleToString (){
+		StringBuilder allArticles = new StringBuilder();
+		for(int i =0;i<articles.size();i++){
+			allArticles.append(articles.get(i));
+		}
+		return allArticles.toString();
 	}
 
 	public int compareTo(Feed other) {
