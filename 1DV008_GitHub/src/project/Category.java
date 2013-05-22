@@ -12,6 +12,10 @@ public class Category implements Comparable<Category> {
 		this.title = title;
 		feeds = new ArrayList<Feed>();
 	}
+	
+	public Category(){
+		
+	}
 
 	public void addFeed(Feed feed) {
 		feeds.add(feed);

@@ -22,6 +22,8 @@ public class Feed implements Comparable<Feed> {
 		this.articles = new ArrayList<Article>();
 		this.articles = articles;
 	}
+	
+	public Feed(){}
 
 	public String getFeedTitle() {
 		return feedTitle;
