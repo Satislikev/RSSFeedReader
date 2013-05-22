@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RWToDatabase {
@@ -22,6 +23,7 @@ public class RWToDatabase {
 	private static List<String> categoryList;
 	private static List<String> feedList;
 	private static int categoryID;
+	private static int feedID;
 	
 	public static boolean nameExists(String name) {
 		startConnection();
@@ -102,7 +104,7 @@ public class RWToDatabase {
 		String[] result = null;
 		try {
 			preparedStatement = connection.prepareStatement("SELECT title FROM rssDB.feed WHERE id IN " +
-					"(SELECT category_id FROM reeDB.user_defines_category WHERE user_id = ?);");
+					"(SELECT feed_id FROM reeDB.user_adds_feed_to_category WHERE (user_id = ? AND category_id = ?));");
 			preparedStatement.setInt(1, userID);
 			preparedStatement.setInt(2, categoryID);
 			resultSet = preparedStatement.executeQuery();
@@ -132,8 +134,41 @@ public class RWToDatabase {
 		return categoryID;
 	}
 	
-	public static void addCategory(String categoryName, int ownerID) {
-		
+	public static int getFeedID(String feedTitle) {
+		startConnection();
+		feedID = 0;
+		try {
+			preparedStatement = connection.prepareStatement("SELECT * FROM rssDB.feed WHERE title = ?;");
+			preparedStatement.setString(1, feedTitle);
+			resultSet = preparedStatement.executeQuery();
+			feedID = resultSet.getInt("id");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
+		return feedID;
+	}
+	
+	public static int addCategory(String categoryName, int ownerID) {
+		if (categoryExists(categoryName, ownerID))
+			return -1;
+		else {
+			startConnection();
+			try {
+				preparedStatement = connection.prepareStatement("INSERT INTO rssDB.category(name) VALUES(?);");
+				preparedStatement.setString(1, categoryName);
+				preparedStatement.executeUpdate();
+				preparedStatement = connection.prepareStatement("INSERT INTO rssDB.user_defines_category(user_id, category_id) VALUES(?, ?);");
+				preparedStatement.setInt(1, ownerID);
+				preparedStatement.setInt(2, getCategoryID(categoryName));
+				preparedStatement.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			closeConnection();
+			return 1;
+		}
+			
 	}
 	
 	public static void renameCategory(String oldCategoryName, String newCategoryName, int ownerID) {
@@ -150,6 +185,13 @@ public class RWToDatabase {
 	
 	public static void removeFeed(String title, Category belongingCategory, User owner) {
 		
+	}
+	
+	public static boolean categoryExists(String categoryName, int ownerID) {
+		if (Arrays.binarySearch(getUsersCategoryList(ownerID), categoryName) >= 0)
+			return true;
+		else
+			return false;
 	}
 	
 	private static void startConnection() {

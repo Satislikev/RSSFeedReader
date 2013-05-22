@@ -1,13 +1,13 @@
 package project;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import project.GUICategoryPanel.ListListener;
 
 public class GUIFeedPanel extends JPanel {
 
@@ -15,6 +15,7 @@ public class GUIFeedPanel extends JPanel {
 	
 	private JScrollPane feedListScroll;
 	private JList<String> feedList;
+	private DefaultListModel<String> feedListModel;
 	private String[] feedListArray;
 	
 	private GUIContainerPanel containerPane;
@@ -26,22 +27,29 @@ public class GUIFeedPanel extends JPanel {
 		this.containerPane = containerPane;
 		this.userID = userID;
 		
-		feedListArray = RWToDatabase.getCategorysFeedList(this.userID);
-		feedList = new JList<String>(feedListArray);
+		feedList = new JList<String>();
+		feedListModel = new DefaultListModel<String>();
 		feedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		feedListScroll = new JScrollPane(feedList);
+		feedListScroll = new JScrollPane(feedList, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		feedList.addListSelectionListener(new ListListener());
 		add(feedListScroll);
 	}
 	
 	public void updateFeedList(int categoryID) {
-		
+		feedListArray = RWToDatabase.getCategorysFeedList(this.userID, categoryID);
+		feedListModel.removeAllElements();
+		int loop = 0;
+		while (loop < feedListArray.length){
+			feedListModel.addElement(feedListArray[loop]);
+	        loop++;
+	    }
+//		feedList.setListData(feedListArray);
 	}
 	
 	class ListListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent e) {
 			selectedValue = feedList.getSelectedValue();
-			containerPane.showArticles(RWToDatabase.getFeedID(userID, selectedValue));
+			containerPane.showArticles(RWToDatabase.getFeedID(selectedValue));
 		}
 		
 	}

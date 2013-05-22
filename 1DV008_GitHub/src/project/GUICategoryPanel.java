@@ -1,9 +1,11 @@
 package project;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -13,6 +15,7 @@ public class GUICategoryPanel extends JPanel {
 	
 	private JScrollPane categoryListScroll;
 	private JList<String> categoryList;
+	private DefaultListModel<String> categoryListModel;
 	private String[] categoryListArray;
 	
 	private GUIContainerPanel containerPane;
@@ -26,14 +29,16 @@ public class GUICategoryPanel extends JPanel {
 		
 		categoryListArray = RWToDatabase.getUsersCategoryList(this.userID);
 		categoryList = new JList<String>(categoryListArray);
+		categoryListModel = new DefaultListModel<String>();
 		categoryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		categoryListScroll = new JScrollPane(categoryList);
+		categoryListScroll = new JScrollPane(categoryList, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		categoryList.addListSelectionListener(new ListListener());
 		add(categoryListScroll);
 	}
 	
 	public void addCategory(String categoryName) {
-		
+		RWToDatabase.addCategory(categoryName, userID);
+		categoryListModel.addElement(categoryName);
 	}
 	
 	public void renameCategory(String oldCategoryName, String newCategoryName) {
