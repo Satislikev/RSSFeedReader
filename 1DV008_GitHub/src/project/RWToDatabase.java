@@ -1,6 +1,5 @@
 package project;
 
-import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -24,6 +23,7 @@ public class RWToDatabase {
 	private static List<String> feedList;
 	private static int categoryID;
 	private static int feedID;
+	private static String feedPath;
 	
 	public static boolean nameExists(String name) {
 		startConnection();
@@ -171,20 +171,42 @@ public class RWToDatabase {
 			
 	}
 	
+	// Will be implemented in the future.
 	public static void renameCategory(String oldCategoryName, String newCategoryName, int ownerID) {
 		
 	}
 	
 	public static void removeCategory(String categoryName, int ownerID) {
-		
+		startConnection();
+		try {
+			preparedStatement = connection.prepareStatement("DELETE FROM rssDB.category WHERE name = ?;");
+			preparedStatement.setString(1, categoryName);
+			preparedStatement.executeUpdate();
+			preparedStatement = connection.prepareStatement("DELETE FROM rssDB.user_defines_category WHERE (category_id = ?) AND (user_id = ?)");
+			preparedStatement.setInt(1, getCategoryID(categoryName));
+			preparedStatement.setInt(2, ownerID);
+			preparedStatement.executeUpdate();
+			preparedStatement = connection.prepareStatement("DELETE FROM rssDB.user_adds_feed_to_category WHERE (category_id = ?) AND (user_id = ?)");
+			preparedStatement.setInt(1, getCategoryID(categoryName));
+			preparedStatement.setInt(2, ownerID);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
 	}
 	
-	public static void addFeed(String title, Path path, Category belongingCategory, User owner) {
+	public static void addFeed(String title, Category belongingCategory, User owner) {
 		
 	}
 	
 	public static void removeFeed(String title, Category belongingCategory, User owner) {
 		
+	}
+	
+	public static String getFeedPath(int feedID) {
+		
+		return feedPath;
 	}
 	
 	public static boolean categoryExists(String categoryName, int ownerID) {
@@ -196,11 +218,15 @@ public class RWToDatabase {
 	
 	private static void startConnection() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			connection = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		

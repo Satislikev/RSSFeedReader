@@ -20,7 +20,7 @@ public class GUICategoryPanel extends JPanel {
 	
 	private GUIContainerPanel containerPane;
 	private int userID;
-	private int index;
+//	private int index;
 	private String selectedValue;
 	
 	public GUICategoryPanel(GUIContainerPanel containerPane, int userID) {
@@ -41,12 +41,14 @@ public class GUICategoryPanel extends JPanel {
 		categoryListModel.addElement(categoryName);
 	}
 	
+	// Will be implemented in the future.
 	public void renameCategory(String oldCategoryName, String newCategoryName) {
 		
 	}
 	
 	public void removeCategory(String categoryName) {
-		
+		RWToDatabase.removeCategory(categoryName, userID);
+		categoryListModel.removeElement(categoryName);
 	}
 	
 	class ListListener implements ListSelectionListener {

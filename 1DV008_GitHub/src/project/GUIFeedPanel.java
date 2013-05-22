@@ -20,7 +20,7 @@ public class GUIFeedPanel extends JPanel {
 	
 	private GUIContainerPanel containerPane;
 	private int userID;
-	private int index;
+//	private int index;
 	private String selectedValue;
 	
 	public GUIFeedPanel(GUIContainerPanel containerPane, int userID) {
@@ -44,6 +44,16 @@ public class GUIFeedPanel extends JPanel {
 	        loop++;
 	    }
 //		feedList.setListData(feedListArray);
+	}
+	
+	public void addFeed(String feedTitle) {
+		RWToDatabase.addFeed(feedTitle, userID);
+		feedListModel.addElement(feedTitle);
+	}
+	
+	public void removeFeed(String feedTitle) {
+		RWToDatabase.removeFeed(feedTitle, userID);
+		feedListModel.removeElement(feedTitle);
 	}
 	
 	class ListListener implements ListSelectionListener {

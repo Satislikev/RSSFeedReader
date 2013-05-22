@@ -3,8 +3,11 @@ package project;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
@@ -53,9 +56,13 @@ public class GUIContainerPanel extends JPanel {
 		feedToolBar = new JToolBar("Feed Tools");
 		
 		categoryAdd = new JButton("Add Category");
+		categoryAdd.addActionListener(new ButtonListener());
 		categoryRemove = new JButton("Remove Category");
+		categoryRemove.addActionListener(new ButtonListener());
 		feedAdd = new JButton("Add Feed");
+		feedAdd.addActionListener(new ButtonListener());
 		feedRemove = new JButton("Remove Feed");
+		feedRemove.addActionListener(new ButtonListener());
 		
 		categoryToolBar.add(categoryAdd);
 		categoryToolBar.add(categoryRemove);
@@ -73,6 +80,36 @@ public class GUIContainerPanel extends JPanel {
 	
 	public void showArticles(int feedID) {
 		articlePane.updateArticles(feedID);
+	}
+	
+	private class ButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			if (event.getSource() == categoryAdd) {
+				categoryPane.addCategory(JOptionPane.showInputDialog("Input new category name:"));
+			}
+			
+			if (event.getSource() == categoryRemove) {
+				String[] categories = RWToDatabase.getUsersCategoryList(userID);
+				String categoryToRemove = (String) JOptionPane.showInputDialog(
+		                null,
+		                "Choose category to remove:",
+		                "Remove Category",
+		                JOptionPane.PLAIN_MESSAGE,
+		                null,
+		                categories,
+		                categories[0]);
+				categoryPane.removeCategory(categoryToRemove);
+			}
+			
+			if (event.getSource() == feedAdd) {
+				
+			}
+			
+			if (event.getSource() == feedRemove) {
+				
+			}
+			
+		}
 	}
 
 }
