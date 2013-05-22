@@ -16,6 +16,7 @@ public class Article {
 		this.articlePubDate = pubDate;
 		this.articleLink = articleLink;
 	}
+	public Article(){}
 
 	public String getTitle() {
 		return articleTitle;
