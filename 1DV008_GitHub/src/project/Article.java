@@ -50,8 +50,8 @@ public class Article {
 	}
 
 	public String toString() {
-		return "Title:" + articleTitle + "\nPub Date:" + articlePubDate
-				+ "\nDescription=" + articleDescription + "\nLink="+ articleLink + "]\n";
+		return "\nTitle:" + articleTitle + "\nPub Date:" + articlePubDate
+				+ "\nDescription=" + articleDescription + "\nLink="+ articleLink ;
 	}
 
 }

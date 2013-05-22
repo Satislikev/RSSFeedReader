@@ -3,16 +3,14 @@ package project;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.InputStream;
 import java.io.Reader;
-import java.nio.file.Path;
-import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
+
 import java.util.List;
 
-import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
@@ -22,9 +20,6 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
 
-import org.xml.sax.InputSource;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class FeedParser {
 
@@ -103,13 +98,13 @@ public class FeedParser {
 						if(header){
 							event = reader.nextEvent();
 							if (event instanceof Characters) {
-								feedPubDate = new Date (dateparser.parse(event.asCharacters().getData()));
+								feedPubDate = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z").parse(event.asCharacters().getData());
 							}
 							//System.out.println(element.getName().getLocalPart() +"\n" +feedPubDate.toString()+"\n");
 						}else{
 							event = reader.nextEvent();
 							if (event instanceof Characters) {
-								articlePubDate = new  Date(event.asCharacters().getData());
+								articlePubDate = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z").parse(event.asCharacters().getData());
 							}
 							//System.out.println(element.getName().getLocalPart() +"\n" +articlePubDate.toString()+"\n");
 						}
@@ -152,6 +147,9 @@ public class FeedParser {
 		} catch (XMLStreamException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

@@ -3,7 +3,6 @@ package project;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +55,7 @@ public class Feed implements Comparable<Feed> {
 		StringBuilder allArticles = new StringBuilder();
 		for(int i =0;i<articles.size();i++){
 			allArticles.append(articles.get(i));
+			allArticles.append("\n");
 		}
 		return allArticles.toString();
 	}
