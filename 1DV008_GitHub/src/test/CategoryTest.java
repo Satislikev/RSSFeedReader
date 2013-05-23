@@ -1,26 +1,28 @@
 package test;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.fail;
+import java.io.File;
 import java.util.List;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import project.Category;
 import project.Feed;
+import project.FeedParser;
 
 public class CategoryTest {
 
 	private String title;
 	private List<Feed> feeds;
 	private Category category;
+	private File file;
 	
 	@Before
 	public void setUp() throws Exception {
 		category = new Category();
+		file = new File("/Users/Kami/Desktop/CNN.rss");
 	}
 
 	@After
@@ -31,8 +33,9 @@ public class CategoryTest {
 	@Test
 	public void testAddFeed() {
 		for(int i = 0; i<1000;i++){
-			
-		}
+			category.addFeed(FeedParser.ParseFeed(file));
+		} 
+		
 	}
 
 	@Test

@@ -57,6 +57,19 @@ public class DataPopulator {
 			closeConnection();
 		}
 	}
+	protected static void createImportedCategory(){
+		startConnection();
+		try {
+			preparedStatement = connection.prepareStatement("INSERT INTO category (name) VALUES ('Imported')");
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			closeConnection();
+		}
+	}
 
 	private static void startConnection() {
 		try {
