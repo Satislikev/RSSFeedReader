@@ -1,6 +1,5 @@
 package project;
 
-import java.awt.Font;
 import java.io.File;
 
 import javax.swing.JPanel;
@@ -33,7 +32,9 @@ public class GUIArticlePanel extends JPanel {
 
 	public void updateArticles(int feedID) {
 		file = new File(RWToDatabase.getFeedPath(feedID));
-		jTextArea.setText(
+		String contents = FeedParser.ParseFeed(file).articleToString();
+		jTextArea.setText(contents);
+		this.revalidate();
 	}
 
 }

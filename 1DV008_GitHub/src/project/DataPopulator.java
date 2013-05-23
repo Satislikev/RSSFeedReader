@@ -11,7 +11,7 @@ public class DataPopulator {
 
 	private final static String url = "jdbc:mysql://localhost:3306/rssDB";
 	private final static String user = "root";
-	private final static String password = "";
+	private final static String password = "1999@1999";
 	private static Connection connection = null;
 	private static PreparedStatement preparedStatement = null;
 	private static Feed feed;

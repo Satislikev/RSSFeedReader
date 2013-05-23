@@ -49,6 +49,9 @@ public class RWToDatabase {
 			preparedStatement = connection.prepareStatement("SELECT * FROM rssDB.user WHERE name = ?;");
 			preparedStatement.setString(1, name);
 			resultSet = preparedStatement.executeQuery();
+			resultSet.next();
+//			System.out.println(password);
+//			System.out.println(resultSet.getString("password"));
 //			while (resultSet.next()) {
 				if (resultSet.getString("password").equals(password)) {
 					closeConnection();
@@ -70,6 +73,7 @@ public class RWToDatabase {
 			preparedStatement = connection.prepareStatement("SELECT * FROM rssDB.user WHERE name = ?;");
 			preparedStatement.setString(1, username);
 			resultSet = preparedStatement.executeQuery();
+			resultSet.next();
 			userID = resultSet.getInt("id");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,7 +88,7 @@ public class RWToDatabase {
 		String[] result = null;
 		try {
 			preparedStatement = connection.prepareStatement("SELECT name FROM rssDB.category WHERE id IN " +
-					"(SELECT category_id FROM reeDB.user_defines_category WHERE user_id = ?);");
+					"(SELECT category_id FROM rssDB.user_defines_category WHERE user_id = ?);");
 			preparedStatement.setInt(1, userID);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next())
@@ -104,7 +108,7 @@ public class RWToDatabase {
 		String[] result = null;
 		try {
 			preparedStatement = connection.prepareStatement("SELECT title FROM rssDB.feed WHERE id IN " +
-					"(SELECT feed_id FROM reeDB.user_adds_feed_to_category WHERE (user_id = ? AND category_id = ?));");
+					"(SELECT feed_id FROM rssDB.user_adds_feed_to_category WHERE (user_id = ? AND category_id = ?));");
 			preparedStatement.setInt(1, userID);
 			preparedStatement.setInt(2, categoryID);
 			resultSet = preparedStatement.executeQuery();

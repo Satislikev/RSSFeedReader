@@ -57,9 +57,12 @@ public class GUILoginPanel extends JPanel  {
 			if (RWToDatabase.nameExists(usernameValue)) {
 				validUser = usernameValue;
 				passwordValue = passwordField.getText();
+//				System.out.println(passwordValue);
 				if (User.checkCredentials(validUser, passwordValue)) {
 					containerPane.authenticated(RWToDatabase.getUserID(usernameValue));
 				}
+				else
+					JOptionPane.showMessageDialog(null, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
 			}
 			else
 				JOptionPane.showMessageDialog(null, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
