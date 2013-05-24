@@ -14,8 +14,10 @@ public class GUIMainFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocation(100,100);
 		
-		containerPane = new GUIContainerPanel();
+		containerPane = new GUIContainerPanel(this);
 		getContentPane().add(containerPane);
+		setResizable(false);
+		pack();
 		
 	}
 

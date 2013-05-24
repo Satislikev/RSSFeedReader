@@ -1,11 +1,16 @@
 package project;
 
+import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -29,11 +34,17 @@ public class GUICategoryPanel extends JPanel {
 		
 		categoryListArray = RWToDatabase.getUsersCategoryList(this.userID);
 		categoryList = new JList<String>(categoryListArray);
+//		categoryList.setVisibleRowCount(46);
+		categoryList.setFixedCellWidth(170);
+		categoryList.setBackground(new Color(164, 157, 208));
 		categoryListModel = new DefaultListModel<String>();
 		categoryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		categoryListScroll = new JScrollPane(categoryList, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		categoryListScroll = new JScrollPane(categoryList, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		categoryListScroll.setPreferredSize(new Dimension(190, 532));
 		categoryList.addListSelectionListener(new ListListener());
 		add(categoryListScroll);
+		setBackground(new Color(115, 110, 144));
+		setBorder(new TitledBorder(new EtchedBorder(), "Categories"));
 	}
 	
 	public void addCategory(String categoryName) {

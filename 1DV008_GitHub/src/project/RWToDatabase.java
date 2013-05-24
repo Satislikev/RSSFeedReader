@@ -17,6 +17,9 @@ public class RWToDatabase {
 	private static Connection connection = null;
 	private static Statement statement = null;
 	private static PreparedStatement preparedStatement = null;
+	private static PreparedStatement preparedStatement1 = null;
+	private static PreparedStatement preparedStatement2 = null;
+	private static PreparedStatement preparedStatement3 = null;
 	private static ResultSet resultSet = null;
 	private static int userID;
 	private static List<String> categoryList;
@@ -130,11 +133,26 @@ public class RWToDatabase {
 			preparedStatement = connection.prepareStatement("SELECT * FROM rssDB.category WHERE name = ?;");
 			preparedStatement.setString(1, categoryName);
 			resultSet = preparedStatement.executeQuery();
+			resultSet.next();
 			categoryID = resultSet.getInt("id");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		closeConnection();
+		return categoryID;
+	}
+	
+	public static int getCategoryIDPrivate(String categoryName) {
+		categoryID = 0;
+		try {
+			preparedStatement1 = connection.prepareStatement("SELECT * FROM rssDB.category WHERE name = ?;");
+			preparedStatement1.setString(1, categoryName);
+			resultSet = preparedStatement1.executeQuery();
+			resultSet.next();
+			categoryID = resultSet.getInt("id");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return categoryID;
 	}
 	
@@ -162,10 +180,10 @@ public class RWToDatabase {
 				preparedStatement = connection.prepareStatement("INSERT INTO rssDB.category(name) VALUES(?);");
 				preparedStatement.setString(1, categoryName);
 				preparedStatement.executeUpdate();
-				preparedStatement = connection.prepareStatement("INSERT INTO rssDB.user_defines_category(user_id, category_id) VALUES(?, ?);");
-				preparedStatement.setInt(1, ownerID);
-				preparedStatement.setInt(2, getCategoryID(categoryName));
-				preparedStatement.executeUpdate();
+				preparedStatement2 = connection.prepareStatement("INSERT INTO rssDB.user_defines_category(user_id, category_id) VALUES(?, ?);");
+				preparedStatement2.setInt(1, ownerID);
+				preparedStatement2.setInt(2, getCategoryIDPrivate(categoryName));
+				preparedStatement2.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -183,17 +201,17 @@ public class RWToDatabase {
 	public static void removeCategory(String categoryName, int ownerID) {
 		startConnection();
 		try {
-			preparedStatement = connection.prepareStatement("DELETE FROM rssDB.category WHERE name = ?;");
-			preparedStatement.setString(1, categoryName);
+			preparedStatement = connection.prepareStatement("DELETE FROM rssDB.user_defines_category WHERE (user_id = ?) AND (category_id = ?);");
+			preparedStatement.setInt(1, ownerID);
+			preparedStatement.setInt(2, getCategoryIDPrivate(categoryName));
 			preparedStatement.executeUpdate();
-			preparedStatement = connection.prepareStatement("DELETE FROM rssDB.user_defines_category WHERE (category_id = ?) AND (user_id = ?)");
-			preparedStatement.setInt(1, getCategoryID(categoryName));
-			preparedStatement.setInt(2, ownerID);
-			preparedStatement.executeUpdate();
-			preparedStatement = connection.prepareStatement("DELETE FROM rssDB.user_adds_feed_to_category WHERE (category_id = ?) AND (user_id = ?)");
-			preparedStatement.setInt(1, getCategoryID(categoryName));
-			preparedStatement.setInt(2, ownerID);
-			preparedStatement.executeUpdate();
+			preparedStatement2 = connection.prepareStatement("DELETE FROM rssDB.user_adds_feed_to_category WHERE (user_id = ?) AND (category_id = ?);");
+			preparedStatement2.setInt(1, ownerID);
+			preparedStatement2.setInt(2, getCategoryIDPrivate(categoryName));
+			preparedStatement2.executeUpdate();
+			preparedStatement3 = connection.prepareStatement("DELETE FROM rssDB.category WHERE name = ?;");
+			preparedStatement3.setString(1, categoryName);
+			preparedStatement3.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -242,6 +260,10 @@ public class RWToDatabase {
             	resultSet.close();
             if (preparedStatement != null)
             	preparedStatement.close();
+            if (preparedStatement2 != null)
+            	preparedStatement2.close();
+            if (preparedStatement3 != null)
+            	preparedStatement3.close();
             if (connection != null)
             	connection.close();
         } catch (SQLException e) {

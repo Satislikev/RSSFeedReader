@@ -1,11 +1,14 @@
 package project;
 
+import java.awt.Color;
 import java.io.File;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 public class GUIArticlePanel extends JPanel {
 	
@@ -23,11 +26,14 @@ public class GUIArticlePanel extends JPanel {
 		this.containerPane = containerPane;
 		this.userID = userID;
 		
-		jTextArea = new JTextArea();
+		jTextArea = new JTextArea(33, 31);
 		jTextArea.setLineWrap(true);
 		jTextArea.setWrapStyleWord(true);
+		jTextArea.setBackground(new Color(164, 157, 208));
 		articleListScroll = new JScrollPane(jTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(articleListScroll);
+		setBackground(new Color(115, 110, 144));
+		setBorder(new TitledBorder(new EtchedBorder(), "Articles"));
 	}
 
 	public void updateArticles(int feedID) {
