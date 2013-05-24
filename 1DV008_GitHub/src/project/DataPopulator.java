@@ -11,7 +11,7 @@ public class DataPopulator {
 
 	private final static String url = "jdbc:mysql://localhost:3306/rssDB";
 	private final static String user = "root";
-	private final static String password = "1999@1999";
+	private final static String password = "";
 	private static Connection connection = null;
 	private static PreparedStatement preparedStatement = null;
 	private static Feed feed;
@@ -33,10 +33,11 @@ public class DataPopulator {
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}finally{
+			} finally{
 				closeConnection();
 			}
-		}else{
+		}
+		else{
 			System.out.println("User Already Exist");
 		}
 	}
