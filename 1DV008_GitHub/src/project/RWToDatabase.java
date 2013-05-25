@@ -24,6 +24,7 @@ public class RWToDatabase {
 	private static int userID;
 	private static List<String> categoryList;
 	private static List<String> feedList;
+	private static List<String> feedList2;
 	private static int categoryID;
 	private static int feedID;
 	private static String feedPath;
@@ -105,6 +106,24 @@ public class RWToDatabase {
 		return result;
 	}
 	
+	public static String[] getFeedList() {
+		startConnection();
+		feedList2 = new ArrayList<String>();
+		String[] result = null;
+		try {
+			preparedStatement = connection.prepareStatement("SELECT * FROM rssDB.feed;");
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next())
+				feedList2.add(resultSet.getString("title"));
+			result = new String[feedList2.size()];
+			feedList2.toArray(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
+		return result;
+	}
+	
 	public static String[] getCategorysFeedList(int userID, int categoryID) {
 		startConnection();
 		feedList = new ArrayList<String>();
@@ -142,7 +161,7 @@ public class RWToDatabase {
 		return categoryID;
 	}
 	
-	public static int getCategoryIDPrivate(String categoryName) {
+	private static int getCategoryIDPrivate(String categoryName) {
 		categoryID = 0;
 		try {
 			preparedStatement1 = connection.prepareStatement("SELECT * FROM rssDB.category WHERE name = ?;");
@@ -163,11 +182,26 @@ public class RWToDatabase {
 			preparedStatement = connection.prepareStatement("SELECT * FROM rssDB.feed WHERE title = ?;");
 			preparedStatement.setString(1, feedTitle);
 			resultSet = preparedStatement.executeQuery();
+			resultSet.next();
 			feedID = resultSet.getInt("id");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		closeConnection();
+		return feedID;
+	}
+	
+	private static int getFeedIDPrivate(String feedTitle) {
+		feedID = 0;
+		try {
+			preparedStatement = connection.prepareStatement("SELECT * FROM rssDB.feed WHERE title = ?;");
+			preparedStatement.setString(1, feedTitle);
+			resultSet = preparedStatement.executeQuery();
+			resultSet.next();
+			feedID = resultSet.getInt("id");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return feedID;
 	}
 	
@@ -218,11 +252,21 @@ public class RWToDatabase {
 		closeConnection();
 	}
 	
-	public static void addFeed(String title, Category belongingCategory, User owner) {
-		
+	public static void addFeed(String feedTitle, String belongingCategory, int ownerID) {
+		startConnection();
+		try {
+			preparedStatement = connection.prepareStatement("INSERT INTO rssDB.user_adds_feed_to_category(user_id, feed_id, category_id) VALUES(?, ?, ?);");
+			preparedStatement.setInt(1, ownerID);
+			preparedStatement.setInt(2, getFeedIDPrivate(feedTitle));
+			preparedStatement.setInt(3, getCategoryIDPrivate(belongingCategory));
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
 	}
 	
-	public static void removeFeed(String title, Category belongingCategory, User owner) {
+	public static void removeFeed(String title, String belongingCategory, int owner) {
 		
 	}
 	
@@ -236,6 +280,19 @@ public class RWToDatabase {
 			return true;
 		else
 			return false;
+	}
+	
+	public static void fillFeedTable(String feedTitle, String feedPath) {
+		startConnection();
+		try {
+			preparedStatement = connection.prepareStatement("INSERT INTO rssDB.feed(title, path) Values(?, ?);");
+			preparedStatement.setString(1, feedTitle);
+			preparedStatement.setString(2, feedPath);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
 	}
 	
 	private static void startConnection() {

@@ -32,11 +32,11 @@ public class GUIFeedPanel extends JPanel {
 		this.containerPane = containerPane;
 		this.userID = userID;
 		
-		feedList = new JList<String>();
+		feedListModel = new DefaultListModel<String>();
+		feedList = new JList<String>(feedListModel);
 //		feedList.setVisibleRowCount(46);
 		feedList.setFixedCellWidth(170);
 		feedList.setBackground(new Color(164, 157, 208));
-		feedListModel = new DefaultListModel<String>();
 		feedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		feedListScroll = new JScrollPane(feedList, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		feedListScroll.setPreferredSize(new Dimension(190, 532));
@@ -57,15 +57,15 @@ public class GUIFeedPanel extends JPanel {
 //		feedList.setListData(feedListArray);
 	}
 	
-	public void addFeed(String feedTitle) {
-		RWToDatabase.addFeed(feedTitle, userID);
+	public void addFeed(String feedTitle, String categoryForFeedName) {
+		RWToDatabase.addFeed(feedTitle, categoryForFeedName, userID);
 		feedListModel.addElement(feedTitle);
 	}
 	
-	public void removeFeed(String feedTitle) {
-		RWToDatabase.removeFeed(feedTitle, userID);
-		feedListModel.removeElement(feedTitle);
-	}
+//	public void removeFeed(String feedTitle) {
+//		RWToDatabase.removeFeed(feedTitle, userID);
+//		feedListModel.removeElement(feedTitle);
+//	}
 	
 	class ListListener implements ListSelectionListener {
 		public void valueChanged(ListSelectionEvent e) {

@@ -48,6 +48,7 @@ public class GUILoginPanel extends JPanel  {
 		loginButton = new JButton("Login");
 		loginButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		loginButton.addActionListener(new ButtonListener());
+		loginButton.setFocusable(true);
 		add(loginButton);
 	}
 	

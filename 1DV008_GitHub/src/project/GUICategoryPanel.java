@@ -33,13 +33,16 @@ public class GUICategoryPanel extends JPanel {
 		this.userID = userID;
 		
 		categoryListArray = RWToDatabase.getUsersCategoryList(this.userID);
-		categoryList = new JList<String>(categoryListArray);
+		categoryListModel = new DefaultListModel<String>();
+		categoryList = new JList<String>(categoryListModel);
+		for (String element : categoryListArray)
+			categoryListModel.addElement(element);
 //		categoryList.setVisibleRowCount(46);
 		categoryList.setFixedCellWidth(170);
 		categoryList.setBackground(new Color(164, 157, 208));
-		categoryListModel = new DefaultListModel<String>();
 		categoryList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		categoryListScroll = new JScrollPane(categoryList, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+//		categoryListScroll.setViewportView(categoryList);
 		categoryListScroll.setPreferredSize(new Dimension(190, 532));
 		categoryList.addListSelectionListener(new ListListener());
 		add(categoryListScroll);
