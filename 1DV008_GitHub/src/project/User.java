@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author Kamyar Aflaki, Ali Khalili Uraz Seddigh
+ * @author Kamyar_Aflaki Ali_Khalili Uraz_Seddigh
  * 
  */
 public class User {

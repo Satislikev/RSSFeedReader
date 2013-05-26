@@ -6,6 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * @author Kamyar_Aflaki Ali_Khalili Uraz_Seddigh 
+ *
+ */
 public class DataPopulator {
 
 
@@ -18,7 +22,11 @@ public class DataPopulator {
 
 
 
-	protected static void createUsers(String username, String password){
+	/**
+	 * @param username Username.
+	 * @param password Password.
+	 */
+	public static void createUsers(String username, String password){
 		if(!RWToDatabase.nameExists(username)){
 			startConnection();
 			try {
@@ -42,7 +50,10 @@ public class DataPopulator {
 		}
 	}
 
-	protected static void createFeed(File input){
+	/**
+	 * @param input XML file to be parsed and added to database.
+	 */
+	public static void createFeed(File input){
 		startConnection();
 		try {
 			feed = FeedParser.ParseFeed(input);
@@ -58,7 +69,7 @@ public class DataPopulator {
 			closeConnection();
 		}
 	}
-	protected static void createImportedCategory(){
+	public static void createImportedCategory(){
 		startConnection();
 		try {
 			preparedStatement = connection.prepareStatement("INSERT INTO category (name) VALUES ('Imported')");

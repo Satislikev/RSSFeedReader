@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Kamyar_Aflaki Ali_Khalili Uraz_Seddigh 
+ *
+ */
 public class RWToDatabase {
 	private final static String url = "jdbc:mysql://localhost:3306/rssDB";
 	private final static String user = "root";
@@ -30,6 +34,10 @@ public class RWToDatabase {
 	private static int feedID;
 	private static String feedPath;
 	
+	/**
+	 * @param name Username.
+	 * @return True if username exists.
+	 */
 	public static boolean nameExists(String name) {
 		startConnection();
 		try {
@@ -48,6 +56,11 @@ public class RWToDatabase {
 		return false;
 	}
 	
+	/**
+	 * @param name Username.
+	 * @param password Password
+	 * @return True if password matches, False if not.
+	 */
 	public static boolean passwordMatches(String name, String password) {
 		startConnection();
 		try {
@@ -71,6 +84,10 @@ public class RWToDatabase {
 	}
 	
 
+	/**
+	 * @param username Username.
+	 * @return User's ID.
+	 */
 	public static int getUserID(String username) {
 		startConnection();
 		userID = 0;
@@ -87,6 +104,10 @@ public class RWToDatabase {
 		return userID;
 	}
 	
+	/**
+	 * @param userID
+	 * @return String array of user's category.
+	 */
 	public static String[] getUsersCategoryList(int userID) {
 		startConnection();
 		categoryList = new ArrayList<String>();
@@ -107,6 +128,9 @@ public class RWToDatabase {
 		return result;
 	}
 	
+	/**
+	 * @return String array of user's feed.
+	 */
 	public static String[] getFeedList() {
 		startConnection();
 		feedList2 = new ArrayList<String>();
@@ -125,6 +149,11 @@ public class RWToDatabase {
 		return result;
 	}
 	
+	/**
+	 * @param userID User's ID.
+	 * @param categoryID Category's ID.
+	 * @return ??
+	 */
 	public static String[] getCategorysFeedList(int userID, int categoryID) {
 		startConnection();
 		feedList = new ArrayList<String>();
@@ -146,6 +175,10 @@ public class RWToDatabase {
 		return result;
 	}
 	
+	/**
+	 * @param categoryName Category name.
+	 * @return Category's ID.
+	 */
 	public static int getCategoryID(String categoryName) {
 		startConnection();
 		categoryID = 0;
@@ -162,6 +195,10 @@ public class RWToDatabase {
 		return categoryID;
 	}
 	
+	/**
+	 * @param categoryName category's name.
+	 * @return ??
+	 */
 	private static int getCategoryIDPrivate(String categoryName) {
 		categoryID = 0;
 		try {
@@ -176,6 +213,10 @@ public class RWToDatabase {
 		return categoryID;
 	}
 	
+	/**
+	 * @param feedTitle Feed's title.
+	 * @return Feed's ID.
+	 */
 	public static int getFeedID(String feedTitle) {
 		startConnection();
 		feedID = 0;
@@ -192,6 +233,10 @@ public class RWToDatabase {
 		return feedID;
 	}
 	
+	/**
+	 * @param feedTitle Feed's title.
+	 * @return ??
+	 */
 	private static int getFeedIDPrivate(String feedTitle) {
 		feedID = 0;
 		try {
@@ -206,6 +251,11 @@ public class RWToDatabase {
 		return feedID;
 	}
 	
+	/**
+	 * @param categoryName Category's name.
+	 * @param ownerID Owners ID.
+	 * @return -1 if category exists, 1 if add is successful.
+	 */
 	public static int addCategory(String categoryName, int ownerID) {
 		if (categoryExists(categoryName, ownerID))
 			return -1;
@@ -233,6 +283,10 @@ public class RWToDatabase {
 		
 	}
 	
+	/**
+	 * @param categoryName Category's name.
+	 * @param ownerID Owners ID.
+	 */
 	public static void removeCategory(String categoryName, int ownerID) {
 		startConnection();
 		try {
@@ -253,6 +307,11 @@ public class RWToDatabase {
 		closeConnection();
 	}
 	
+	/**
+	 * @param feedTitle Feed's title.
+	 * @param belongingCategory ??
+	 * @param ownerID Owners' ID.
+	 */
 	public static void addFeed(String feedTitle, String belongingCategory, int ownerID) {
 		startConnection();
 		try {
@@ -271,6 +330,10 @@ public class RWToDatabase {
 		
 	}
 	
+	/**
+	 * @param feedID Feed's ID.
+	 * @return Feed's path.
+	 */
 	public static String getFeedPath(int feedID) {
 		startConnection();
 		try {
@@ -286,6 +349,11 @@ public class RWToDatabase {
 		return feedPath;
 	}
 	
+	/**
+	 * @param categoryName Category's name.
+	 * @param ownerID Owners ID.
+	 * @return True if category exists, False if not.
+	 */
 	public static boolean categoryExists(String categoryName, int ownerID) {
 		if (Arrays.binarySearch(getUsersCategoryList(ownerID), categoryName) >= 0)
 			return true;
@@ -293,6 +361,10 @@ public class RWToDatabase {
 			return false;
 	}
 	
+	/**
+	 * @param feedTitle Feed's title.
+	 * @param feedPath Feed's path.
+	 */
 	public static void fillFeedTable(String feedTitle, String feedPath) {
 		startConnection();
 		try {

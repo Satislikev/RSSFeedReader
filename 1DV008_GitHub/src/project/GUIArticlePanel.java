@@ -10,6 +10,10 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+/**
+ * @author Kamyar_Aflaki Ali_Khalili Uraz_Seddigh 
+ *
+ */
 public class GUIArticlePanel extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
@@ -22,6 +26,10 @@ public class GUIArticlePanel extends JPanel {
 	
 	private File file;
 	
+	/**
+	 * @param containerPane Container panel.
+	 * @param userID User's ID.
+	 */
 	public GUIArticlePanel(GUIContainerPanel containerPane, int userID) {
 		this.containerPane = containerPane;
 		this.userID = userID;
@@ -36,6 +44,9 @@ public class GUIArticlePanel extends JPanel {
 		setBorder(new TitledBorder(new EtchedBorder(), "Articles"));
 	}
 
+	/**
+	 * @param feedID Feed's ID.
+	 */
 	public void updateArticles(int feedID) {
 		file = new File(RWToDatabase.getFeedPath(feedID));
 		String contents = FeedParser.ParseFeed(file).articleToString();

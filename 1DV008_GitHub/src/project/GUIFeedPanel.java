@@ -14,6 +14,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+/**
+ * @author Kamyar_Aflaki Ali_Khalili Uraz_Seddigh 
+ *
+ */
 public class GUIFeedPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +32,10 @@ public class GUIFeedPanel extends JPanel {
 //	private int index;
 	private String selectedValue;
 	
+	/**
+	 * @param containerPane Container Panel.
+	 * @param userID User's ID.
+	 */
 	public GUIFeedPanel(GUIContainerPanel containerPane, int userID) {
 		this.containerPane = containerPane;
 		this.userID = userID;
@@ -46,6 +54,9 @@ public class GUIFeedPanel extends JPanel {
 		setBorder(new TitledBorder(new EtchedBorder(), "Feeds"));
 	}
 	
+	/**
+	 * @param categoryID Category's ID.
+	 */
 	public void updateFeedList(int categoryID) {
 		feedListArray = RWToDatabase.getCategorysFeedList(this.userID, categoryID);
 		feedListModel.removeAllElements();
@@ -57,6 +68,10 @@ public class GUIFeedPanel extends JPanel {
 //		feedList.setListData(feedListArray);
 	}
 	
+	/**
+	 * @param feedTitle Feed's title.
+	 * @param categoryForFeedName ??
+	 */
 	public void addFeed(String feedTitle, String categoryForFeedName) {
 		RWToDatabase.addFeed(feedTitle, categoryForFeedName, userID);
 		feedListModel.addElement(feedTitle);

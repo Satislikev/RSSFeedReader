@@ -13,13 +13,24 @@ import javax.xml.stream.events.StartDocument;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
+/**
+ * @author Kamyar_Aflaki Ali_Khalili Uraz_Seddigh 
+ *
+ */
 public class XmlWriter {
 	private String configFile;
 
+	/**
+	 * @param configFile Configuration file.
+	 */
 	public void setFile(String configFile) {
 		this.configFile = configFile;
 	}
 
+	/**
+	 * @param category Category.
+	 * @throws Exception XML exceptions.
+	 */
 	public void Export(Category category) throws Exception {
 		ArrayList<Feed> categoryFeeds = (ArrayList<Feed>) category.getFeed();
 		// Create a XMLOutputFactory
@@ -51,6 +62,12 @@ public class XmlWriter {
 		eventWriter.close();
 	}
 
+	/**
+	 * @param eventWriter Event writer
+	 * @param name Node's name.
+	 * @param value Value of the node.
+	 * @throws XMLStreamException
+	 */
 	private void createNode(XMLEventWriter eventWriter, String name,
 			String value) throws XMLStreamException {
 

@@ -13,6 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+/**
+ * @author Kamyar_Aflaki Ali_Khalili Uraz_Seddigh 
+ *
+ */
 public class GUILoginPanel extends JPanel  {
 
 	private static final long serialVersionUID = 1L;
@@ -30,6 +34,9 @@ public class GUILoginPanel extends JPanel  {
 	
 	private GUIContainerPanel containerPane;
 	
+	/**
+	 * @param containerPane Container Panel.
+	 */
 	public GUILoginPanel(GUIContainerPanel containerPane) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.containerPane = containerPane;

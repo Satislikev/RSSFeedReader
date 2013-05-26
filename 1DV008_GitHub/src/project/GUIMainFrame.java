@@ -3,6 +3,10 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * @author Kamyar_Aflaki Ali_Khalili Uraz_Seddigh 
+ *
+ */
 public class GUIMainFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;

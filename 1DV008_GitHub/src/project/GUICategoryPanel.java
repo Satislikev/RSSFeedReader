@@ -14,6 +14,10 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+/**
+ * @author Kamyar_Aflaki Ali_Khalili Uraz_Seddigh 
+ *
+ */
 public class GUICategoryPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +32,10 @@ public class GUICategoryPanel extends JPanel {
 //	private int index;
 	private String selectedValue;
 	
+	/**
+	 * @param containerPane Container Panel.
+	 * @param userID User's ID.
+	 */
 	public GUICategoryPanel(GUIContainerPanel containerPane, int userID) {
 		this.containerPane = containerPane;
 		this.userID = userID;
@@ -50,6 +58,9 @@ public class GUICategoryPanel extends JPanel {
 		setBorder(new TitledBorder(new EtchedBorder(), "Categories"));
 	}
 	
+	/**
+	 * @param categoryName Category's name.
+	 */
 	public void addCategory(String categoryName) {
 		RWToDatabase.addCategory(categoryName, userID);
 		categoryListModel.addElement(categoryName);
@@ -60,6 +71,9 @@ public class GUICategoryPanel extends JPanel {
 		
 	}
 	
+	/**
+	 * @param categoryName Category's name.
+	 */
 	public void removeCategory(String categoryName) {
 		RWToDatabase.removeCategory(categoryName, userID);
 		categoryListModel.removeElement(categoryName);

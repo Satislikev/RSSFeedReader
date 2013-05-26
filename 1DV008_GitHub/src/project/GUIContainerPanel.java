@@ -7,13 +7,16 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
+/**
+ * @author Kamyar_Aflaki Ali_Khalili Uraz_Seddigh 
+ *
+ */
 public class GUIContainerPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -42,6 +45,9 @@ public class GUIContainerPanel extends JPanel {
 	private JPanel centerGridContainer;
 	private JPanel leftGridContainer;
 
+	/**
+	 * @param guiMainFrame GUI main frame.
+	 */
 	public GUIContainerPanel(GUIMainFrame guiMainFrame) {
 		setBackground(BACKGROUND_COLOR);
 		setLayout(new BorderLayout());
@@ -51,6 +57,9 @@ public class GUIContainerPanel extends JPanel {
 		add(loginPane, BorderLayout.CENTER);
 	}
 
+	/**
+	 * @param userID User's ID.
+	 */
 	public void authenticated(int userID) {
 //		File directory = new File("FeedFiles");
 //		File[] files = directory.listFiles();
@@ -116,10 +125,16 @@ public class GUIContainerPanel extends JPanel {
 
 	}
 
+	/**
+	 * @param categoryID Category's ID.
+	 */
 	public void showFeeds(int categoryID) {
 		feedPane.updateFeedList(categoryID);
 	}
 
+	/**
+	 * @param feedID Feed's ID.
+	 */
 	public void showArticles(int feedID) {
 		articlePane.updateArticles(feedID);
 	}

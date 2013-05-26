@@ -20,7 +20,10 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.XMLEvent;
 
-
+/**
+ * @author Kamyar_Aflaki Ali_Khalili Uraz_Seddigh 
+ *
+ */
 public class FeedParser {
 
 	private static final String TITLE = "title";
@@ -43,6 +46,10 @@ public class FeedParser {
 
 
 
+	/**
+	 * @param rssfile File to be parsed.
+	 * @return A filled Feed object.
+	 */
 	public static Feed ParseFeed(File rssfile) {
 		header = true;
 		 image = false;
