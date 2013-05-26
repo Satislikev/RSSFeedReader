@@ -1,7 +1,8 @@
 package test;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
@@ -15,14 +16,14 @@ import project.FeedParser;
 public class CategoryTest {
 
 	private String title;
-	private List<Feed> feeds;
+	private List<Feed> feeds= new ArrayList<Feed>();
 	private Category category;
-	private File file;
+	private File file = new File("/Users/Kami/Desktop/CNN.rss");
+	private Feed feed;
 	
 	@Before
 	public void setUp() throws Exception {
 		category = new Category();
-		file = new File("/Users/Kami/Desktop/CNN.rss");
 	}
 
 	@After
@@ -32,35 +33,37 @@ public class CategoryTest {
 
 	@Test
 	public void testAddFeed() {
-		for(int i = 0; i<1000;i++){
+		for(int i = 0; i<10;i++){
 			category.addFeed(FeedParser.ParseFeed(file));
 		} 
-		
-	}
-
-	@Test
-	public void testRemoveFeed() {
-		fail("Not yet implemented");
+		assertEquals(category.getFeed().size(),10);
 	}
 
 	@Test
 	public void testHasFeed() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSortFeeds() {
-		fail("Not yet implemented");
+		feed = FeedParser.ParseFeed(file);
+		category.addFeed(feed);
+		assertTrue(category.hasFeed(feed));
 	}
 
 	@Test
 	public void testGetFeed() {
-		fail("Not yet implemented");
+		for(int i = 0; i<10;i++){
+			feed = FeedParser.ParseFeed(file);
+			feeds.add(feed);
+			category.addFeed(feed);
+			assertEquals(category.getFeed(),feeds);
+		} 
 	}
 
 	@Test
 	public void testSetFeed() {
-		fail("Not yet implemented");
+		for(int i = 0; i<10;i++){
+			feed = FeedParser.ParseFeed(file);
+			feeds.add(feed);
+			category.setFeed(feeds);
+			assertEquals(category.getFeed(),feeds);
+		} 
 	}
 
 }

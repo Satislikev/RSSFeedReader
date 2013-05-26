@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.After;
@@ -22,6 +23,7 @@ public class FeedTest {
 	private Date feedPubDate;
 	private List<Article> articles;
 	private Feed feed;
+	private Date date;
 	
 	
 	@Before
@@ -72,12 +74,22 @@ public class FeedTest {
 
 	@Test
 	public void testGetFeedPubDate() {
-		fail("Not yet implemented");
+		Random ran =  new  Random();
+		for(int i = 0; i<1000;i++){
+			date = new Date(ran.nextLong());
+			feed.setFeedPubDate(date);
+			assertEquals(feed.getFeedPubDate(), date);
+		}
 	}
 
 	@Test
 	public void testSetFeedPubDate() {
-		fail("Not yet implemented");
+		Random ran =  new  Random();
+		for(int i = 0; i<1000;i++){
+			date = new Date(ran.nextLong());
+			feed.setFeedPubDate(date);
+			assertEquals(feed.getFeedPubDate(), date);
+		}
 	}
 
 }

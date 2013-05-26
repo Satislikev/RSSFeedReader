@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.*;
 
 import java.util.Date;
+import java.util.Random;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -18,6 +19,7 @@ public class ArticleTest {
 	private Date articlePubDate;
 	private String articleLink;
 	private Article article;
+	private Date date;
 	
 	
 	@Before
@@ -68,6 +70,12 @@ public class ArticleTest {
 
 	@Test
 	public void testGetpubDate() {
+		Random ran =  new  Random();
+		for(int i = 0; i<1000;i++){
+			date = new Date(ran.nextLong());
+			article.setpubDate(date);
+			assertEquals(article.getpubDate(), date);
+		}
 	}
 
 	@Test
@@ -90,6 +98,12 @@ public class ArticleTest {
 
 	@Test
 	public void testSetpubDate() {
+		Random ran =  new  Random();
+		for(int i = 0; i<1000;i++){
+			date = new Date(ran.nextLong());
+			article.setpubDate(date);
+			assertEquals(article.getpubDate(), date);
+		}
 	}
 
 
