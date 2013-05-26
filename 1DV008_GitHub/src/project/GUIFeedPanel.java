@@ -36,13 +36,13 @@ public class GUIFeedPanel extends JPanel {
 		feedList = new JList<String>(feedListModel);
 //		feedList.setVisibleRowCount(46);
 		feedList.setFixedCellWidth(170);
-		feedList.setBackground(new Color(164, 157, 208));
+		feedList.setBackground(new Color(220, 220, 220));
 		feedList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		feedListScroll = new JScrollPane(feedList, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		feedListScroll.setPreferredSize(new Dimension(190, 532));
 		feedList.addListSelectionListener(new ListListener());
 		add(feedListScroll);
-		setBackground(new Color(115, 110, 144));
+		setBackground(new Color(170, 33, 33));
 		setBorder(new TitledBorder(new EtchedBorder(), "Feeds"));
 	}
 	

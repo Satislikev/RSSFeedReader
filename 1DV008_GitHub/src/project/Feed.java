@@ -55,8 +55,9 @@ public class Feed implements Comparable<Feed> {
 	
 	public String articleToString (){
 		StringBuilder allArticles = new StringBuilder();
-		for(int i =0;i<articles.size();i++){
+		for(int i = 0; i < articles.size(); i++){
 			allArticles.append(articles.get(i));
+//			System.out.println(articles.get(i));
 			allArticles.append("\n");
 		}
 		return allArticles.toString();

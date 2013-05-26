@@ -29,10 +29,10 @@ public class GUIArticlePanel extends JPanel {
 		jTextArea = new JTextArea(33, 31);
 		jTextArea.setLineWrap(true);
 		jTextArea.setWrapStyleWord(true);
-		jTextArea.setBackground(new Color(164, 157, 208));
+		jTextArea.setBackground(new Color(220, 220, 220));
 		articleListScroll = new JScrollPane(jTextArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(articleListScroll);
-		setBackground(new Color(115, 110, 144));
+		setBackground(new Color(170, 33, 33));
 		setBorder(new TitledBorder(new EtchedBorder(), "Articles"));
 	}
 

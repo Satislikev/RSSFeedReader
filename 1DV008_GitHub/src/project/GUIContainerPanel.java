@@ -35,6 +35,7 @@ public class GUIContainerPanel extends JPanel {
 	private JButton categoryRemove;
 	private JButton feedAdd;
 	private JButton feedRemove;
+	private JButton feedSuggest;
 
 	private GUIMainFrame guiMainFrame;
 
@@ -83,24 +84,26 @@ public class GUIContainerPanel extends JPanel {
 		add(centerGridContainer, BorderLayout.CENTER);
 
 		categoryToolBar = new JToolBar("Category Tools");
-		categoryToolBar.setBackground(new Color(115, 110, 144));
+		categoryToolBar.setBackground(new Color(170, 33, 33));
 		//		feedToolBar = new JToolBar("Feed Tools");
 
 		categoryAdd = new JButton("Add Category");
-		categoryAdd.setBackground(new Color(164, 157, 208));
+		categoryAdd.setBackground(new Color(220, 220, 220));
 		categoryAdd.addActionListener(new ButtonListener());
 		categoryRemove = new JButton("Remove Category");
-		categoryRemove.setBackground(new Color(164, 157, 208));
+		categoryRemove.setBackground(new Color(220, 220, 220));
 		categoryRemove.addActionListener(new ButtonListener());
 		feedAdd = new JButton("Add Feed");
-		feedAdd.setBackground(new Color(164, 157, 208));
+		feedAdd.setBackground(new Color(220, 220, 220));
 		feedAdd.addActionListener(new ButtonListener());
 		feedRemove = new JButton("Remove Feed");
-		feedRemove.setBackground(new Color(164, 157, 208));
+		feedRemove.setBackground(new Color(220, 220, 220));
 		feedRemove.addActionListener(new ButtonListener());
+//		feedSuggest = new JButton("Suggest Feed");
+		
 
 		toolbarsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		toolbarsPanel.setBackground(new Color(115, 110, 144));
+		toolbarsPanel.setBackground(new Color(170, 33, 33));
 
 		categoryToolBar.add(categoryAdd);
 		categoryToolBar.add(categoryRemove);
