@@ -51,18 +51,18 @@ public class GUIContainerPanel extends JPanel {
 	}
 
 	public void authenticated(int userID) {
-		File directory = new File("FeedFiles");
-		File[] files = directory.listFiles();
-		String feedTitle;
-		String feedPath;
-		for (File element : files) {
-			if (element.getName().endsWith(".rss")) {
-				feedTitle = element.getName();
-				feedPath = element.getPath();
-//				System.out.println(feedTitle + " " + feedPath);
-				RWToDatabase.fillFeedTable(feedTitle, feedPath);
-			}
-		}
+//		File directory = new File("FeedFiles");
+//		File[] files = directory.listFiles();
+//		String feedTitle;
+//		String feedPath;
+//		for (File element : files) {
+//			if (element.getName().endsWith(".rss")) {
+//				feedTitle = element.getName();
+//				feedPath = element.getPath();
+////				System.out.println(feedTitle + " " + feedPath);
+//				RWToDatabase.fillFeedTable(feedTitle, feedPath);
+//			}
+//		}
 		this.userID = userID;
 		loginPane.setVisible(false);
 		setPreferredSize(PANEL_SIZE);

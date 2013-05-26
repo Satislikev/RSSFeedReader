@@ -20,6 +20,7 @@ public class RWToDatabase {
 	private static PreparedStatement preparedStatement1 = null;
 	private static PreparedStatement preparedStatement2 = null;
 	private static PreparedStatement preparedStatement3 = null;
+	private static PreparedStatement preparedStatement4 = null;
 	private static ResultSet resultSet = null;
 	private static int userID;
 	private static List<String> categoryList;
@@ -194,9 +195,9 @@ public class RWToDatabase {
 	private static int getFeedIDPrivate(String feedTitle) {
 		feedID = 0;
 		try {
-			preparedStatement = connection.prepareStatement("SELECT * FROM rssDB.feed WHERE title = ?;");
-			preparedStatement.setString(1, feedTitle);
-			resultSet = preparedStatement.executeQuery();
+			preparedStatement4 = connection.prepareStatement("SELECT * FROM rssDB.feed WHERE title = ?;");
+			preparedStatement4.setString(1, feedTitle);
+			resultSet = preparedStatement4.executeQuery();
 			resultSet.next();
 			feedID = resultSet.getInt("id");
 		} catch (SQLException e) {
