@@ -272,7 +272,17 @@ public class RWToDatabase {
 	}
 	
 	public static String getFeedPath(int feedID) {
-		
+		startConnection();
+		try {
+			preparedStatement = connection.prepareStatement("SELECT * FROM rssDB.feed WHERE id = ?;");
+			preparedStatement.setInt(1, feedID);
+			resultSet = preparedStatement.executeQuery();
+			resultSet.next();
+			feedPath = resultSet.getString("path");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		closeConnection();
 		return feedPath;
 	}
 	
